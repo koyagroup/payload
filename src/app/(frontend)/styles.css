@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+main {
+  margin: 0;
+  min-height: 100%;
+  font-family: Inter, system-ui, sans-serif;
+  background: #080808;
+  color: #f8f8f8;
+}
+
+.home {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.content {
+  max-width: 720px;
+  text-align: center;
+}
+
+.admin {
+  display: inline-block;
+  margin-top: 16px;
+  text-decoration: none;
+  color: #080808;
+  background: #f0d060;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
