@@ -2,6 +2,8 @@
 
 Standalone Payload CMS service for Koya marketing content.
 
+Project URL: `https://payload.koyabank.com`
+
 ## What this service owns
 
 - Marketing pages and section layouts
@@ -59,7 +61,9 @@ pnpm dev
 
 6. Open Payload admin:
 
-`http://localhost:3000/admin`
+`https://payload.koyabank.com/admin`
+
+For local development, use `http://localhost:3000/admin`.
 
 ## Environment behavior
 

@@ -24,6 +24,10 @@ main {
   text-align: center;
 }
 
+.content a {
+  color: #f0d060;
+}
+
 .admin {
   display: inline-block;
   margin-top: 16px;
