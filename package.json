@@ -13,6 +13,7 @@
     "generate:importmap": "pnpm payload generate:importmap",
     "migrate": "pnpm payload migrate",
     "migrate:create": "pnpm payload migrate:create",
+    "db:create:seed": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/create-seed-db.ts",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "ci": "pnpm migrate && pnpm build"
@@ -28,6 +29,7 @@
     "graphql": "^16.11.0",
     "next": "16.2.3",
     "payload": "3.83.0",
+    "pg": "^8.20.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sharp": "0.34.4"
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@types/node": "22.19.9",
+    "@types/pg": "^8.15.6",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/parser": "^8.58.2",

@@ -1,6 +1,5 @@
 import 'dotenv/config'
 
-import configPromise from '../src/payload.config'
 import { getPayload } from 'payload'
 
 type RichTextDoc = {
@@ -157,6 +156,13 @@ async function upsertUser(
 }
 
 async function run() {
+  const seedDatabaseURL = process.env.SEED_DATABASE_URL?.trim()
+
+  if (seedDatabaseURL) {
+    process.env.DATABASE_URL = seedDatabaseURL
+  }
+
+  const { default: configPromise } = await import('../src/payload.config')
   const payload = (await getPayload({ config: configPromise })) as any
 
   await upsertUser(

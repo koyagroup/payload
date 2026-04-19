@@ -26,14 +26,14 @@ Standalone Payload CMS service for Koya marketing content.
 cp .env.example .env
 ```
 
-2. Set `DATABASE_URL` to your local Postgres instance.
-   Example:
+2. Set `DATABASE_URL` to your Postgres instance.
+   For your remote host:
 
 ```bash
-postgresql://postgres:postgres@127.0.0.1:5432/koya_payload
+postgresql://koya_app:<password>@db.koyabank.com:5432/koya_payload
 ```
 
-   Quick local Postgres with Docker:
+   Optional local Postgres with Docker:
 
 ```bash
 docker run --name koya-pg -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=koya_payload -p 5432:5432 -d postgres:16
@@ -66,14 +66,33 @@ pnpm dev
 - `DATABASE_URL` and `PAYLOAD_SECRET` are required at startup.
 - `PAYLOAD_PUSH_SCHEMA` defaults to `false`. Keep it false when using migrations (recommended).
   Set `PAYLOAD_PUSH_SCHEMA=true` only for local schema iteration.
+- `DATABASE_ADMIN_URL` is used for creating additional databases (e.g. seed database).
+- `SEED_DATABASE_URL` (optional) is used by `pnpm seed`. If set, seed writes to that database instead of `DATABASE_URL`.
 - `BLOB_READ_WRITE_TOKEN` is optional:
   - when set, `media` uploads use Vercel Blob
   - when unset, uploads use local `/media` storage
+
+## Create separate seed database
+
+```bash
+pnpm db:create:seed
+```
+
+This uses:
+
+- `DATABASE_ADMIN_URL` (or falls back to `DATABASE_URL`)
+- `SEED_DATABASE_NAME` (default `koya_payload_seed`)
 
 ## Seed baseline content
 
 ```bash
 pnpm seed
+```
+
+To force seeding to a specific database in one-off runs:
+
+```bash
+SEED_DATABASE_URL=postgresql://koya_app:<password>@db.koyabank.com:5432/koya_payload_seed pnpm seed
 ```
 
 The seed is idempotent and creates/updates:
