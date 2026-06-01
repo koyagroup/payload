@@ -66,6 +66,17 @@ const storagePlugins = s3Bucket
 export default buildConfig({
   admin: {
     user: Users.slug,
+    theme: 'dark',
+    meta: {
+      titleSuffix: ' — Koya',
+      icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' }],
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/Logo#Logo',
+        Icon: '@/components/admin/Icon#Icon',
+      },
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
