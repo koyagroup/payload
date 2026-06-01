@@ -6,7 +6,7 @@
   "description": "Koya marketing CMS built with Payload and Next.js",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "pnpm generate:importmap && cross-env NODE_OPTIONS=--no-deprecation next build",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:types": "pnpm payload generate:types",
