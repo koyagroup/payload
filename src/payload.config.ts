@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -30,17 +31,37 @@ const payloadSecret = process.env.PAYLOAD_SECRET || 'koya-local-dev-secret'
 
 const serverURL = getServerSideURL()
 const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+const s3Bucket = process.env.S3_BUCKET
 
-const storagePlugins = blobToken
+// Storage precedence: S3 (dedicated AWS bucket, KOYA-PAYLOAD-RDS-S3) > Vercel Blob
+// (legacy fallback, kept for one-step rollback) > local disk (dev). Selecting S3 only
+// requires S3_BUCKET to be set; Blob remains wired so reverting is an env change.
+const storagePlugins = s3Bucket
   ? [
-      vercelBlobStorage({
+      s3Storage({
         collections: {
           media: true,
         },
-        token: blobToken,
+        bucket: s3Bucket,
+        config: {
+          region: process.env.S3_REGION,
+          credentials: {
+            accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+          },
+        },
       }),
     ]
-  : []
+  : blobToken
+    ? [
+        vercelBlobStorage({
+          collections: {
+            media: true,
+          },
+          token: blobToken,
+        }),
+      ]
+    : []
 
 export default buildConfig({
   admin: {
