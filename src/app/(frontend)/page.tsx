@@ -1,16 +1,7 @@
+import { redirect } from 'next/navigation'
+
+// payload.koyabank.com is an admin-only host (the public marketing site is apps/web on koyabank.com).
+// Send the root straight to the Payload admin instead of showing a placeholder holding page.
 export default function HomePage() {
-  return (
-    <div className="home">
-      <div className="content">
-        <h1>Koya Payload CMS</h1>
-        <p>
-          This service hosts Koya marketing content and editorial workflows at{' '}
-          <a href="https://payload.koyabank.com">payload.koyabank.com</a>.
-        </p>
-        <a className="admin" href="/admin">
-          Open Admin
-        </a>
-      </div>
-    </div>
-  )
+  redirect('/admin')
 }

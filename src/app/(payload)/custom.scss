@@ -1,1 +1,73 @@
-/* Custom Payload admin styles can be added here when needed. */
+/* ──────────────────────────────────────────────────────────────────────────
+   Koya — Payload admin theme (OLED black + gold).
+
+   The admin is forced to dark (admin.theme:'dark'). Payload builds dark-mode
+   surfaces from --theme-elevation-0 (page bg) → --theme-elevation-1000 (brightest
+   text), with --theme-bg, --theme-text, --theme-input-bg, --theme-border-color
+   derived from that ramp. We override the ramp to a warm OLED→cream scale and
+   repoint the action / active / focus accents to the Koya gold. This file is
+   imported AFTER @payloadcms/next/css (see the generated (payload)/layout.tsx),
+   and the html[data-theme=dark] selectors out-specify Payload's [data-theme=dark],
+   so these win.
+   ────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme='dark'] {
+  /* Koya brand tokens */
+  --koya-gold: #d4af37;
+  --koya-gold-hover: #e0bd57;
+  --koya-gold-deep: #9e7531;
+  --koya-ink: #0b0b0c;
+
+  /* Warm OLED → cream elevation ramp (dark: 0 = page bg, 1000 = brightest text) */
+  --theme-elevation-0: #070708;
+  --theme-elevation-50: #0d0d0f;
+  --theme-elevation-100: #151517;
+  --theme-elevation-150: #212022;
+  --theme-elevation-200: #2b2a2c;
+  --theme-elevation-250: #353336;
+  --theme-elevation-300: #413f42;
+  --theme-elevation-350: #4d4b4e;
+  --theme-elevation-400: #5a585b;
+  --theme-elevation-450: #686569;
+  --theme-elevation-500: #787479;
+  --theme-elevation-550: #8a8688;
+  --theme-elevation-600: #9c9897;
+  --theme-elevation-650: #aeaaa6;
+  --theme-elevation-700: #c0bcb5;
+  --theme-elevation-750: #d2cdc4;
+  --theme-elevation-800: #e6e0d5;
+  --theme-elevation-850: #ece7dd;
+  --theme-elevation-900: #f2eee5;
+  --theme-elevation-1000: #f7f3ec;
+
+  /* Semantic surfaces / text (explicit for precision) */
+  --theme-bg: var(--theme-elevation-0);
+  --theme-text: #f5f0e8;
+  --theme-input-bg: var(--theme-elevation-50);
+  --theme-border-color: #232227;
+
+  /* Focus ring → gold (Payload default was 2px solid var(--theme-success-600)) */
+  --accessibility-outline: 2px solid var(--koya-gold);
+}
+
+/* Primary CTA (login "Login", Save, Create) → gold with dark ink.
+   .btn--style-primary is driven by --bg-color/--color/--hover-bg/--hover-color. */
+html[data-theme='dark'] .btn--style-primary {
+  --bg-color: var(--koya-gold);
+  --color: var(--koya-ink);
+  --hover-bg: var(--koya-gold-hover);
+  --hover-color: var(--koya-ink);
+}
+
+/* Active nav item → gold (the link label + the left indicator bar) */
+html[data-theme='dark'] .nav__link.active {
+  color: var(--koya-gold);
+}
+html[data-theme='dark'] .nav__link-indicator {
+  background: var(--koya-gold);
+}
+
+/* Subtle gold text selection */
+html[data-theme='dark'] ::selection {
+  background: rgba(212, 175, 55, 0.28);
+}
