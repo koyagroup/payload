@@ -1,0 +1,44 @@
+name: Deploy CMS (payload → payload.koyabank.com)
+
+# Auto-deploy the Payload CMS to Vercel on push to main. payload is a SEPARATE repo
+# from the koya monorepo, so it gets its own deploy workflow (the koya ci.yml only
+# covers web + panel, which live in that monorepo). The Vercel project is git-linked
+# but its native webhook never fires — this Actions job is the reliable mechanism.
+#
+# Requires repo secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID (payload).
+# `vercel build` runs `pnpm build` (= generate:importmap && next build) with the
+# Vercel project's production env (DB/S3/PAYLOAD_SECRET) pulled — so the importMap is
+# always regenerated and the CMS-only data layer (its own RDS+S3) is untouched.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-payload
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build & deploy to Vercel (production)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+      - name: Pull Vercel project settings (production)
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build (regenerates importMap)
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy (production)
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
