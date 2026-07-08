@@ -440,6 +440,99 @@ const cta: Block = {
   fields: [...sectionHeadingFields, ctaFields('primaryCta'), ctaFields('secondaryCta')],
 }
 
+// step-330 landing rebrand blocks. These supersede hero/trustStrip/globalFinance/
+// finalCta on the landing page; the old blocks stay registered so previously
+// published compositions keep rendering (atomic content cutover + rollback).
+const landingHero: Block = {
+  slug: 'landingHero',
+  labels: {
+    singular: 'Landing Hero',
+    plural: 'Landing Heroes',
+  },
+  fields: [
+    ...sectionHeadingFields,
+    ctaFields('primaryCta'),
+    ctaFields('secondaryCta'),
+    {
+      name: 'trustSignals',
+      type: 'array',
+      maxRows: 6,
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'widgetFootnote',
+      type: 'text',
+    },
+  ],
+}
+
+const whyKoya: Block = {
+  slug: 'whyKoya',
+  labels: {
+    singular: 'Why Koya',
+    plural: 'Why Koya Sections',
+  },
+  fields: [
+    ...sectionHeadingFields,
+    {
+      name: 'stats',
+      type: 'array',
+      minRows: 1,
+      maxRows: 6,
+      fields: [
+        {
+          name: 'value',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+  ],
+}
+
+const stocksTicker: Block = {
+  slug: 'stocksTicker',
+  labels: {
+    singular: 'Stocks Ticker',
+    plural: 'Stocks Tickers',
+  },
+  fields: [...sectionHeadingFields],
+}
+
+const waitlistCta: Block = {
+  slug: 'waitlistCta',
+  labels: {
+    singular: 'Waitlist CTA',
+    plural: 'Waitlist CTAs',
+  },
+  fields: [
+    ...sectionHeadingFields,
+    {
+      name: 'emailPlaceholder',
+      type: 'text',
+    },
+    {
+      name: 'buttonLabel',
+      type: 'text',
+    },
+    {
+      name: 'successText',
+      type: 'text',
+    },
+  ],
+}
+
 export const marketingBlocks: Block[] = [
   marketRibbon,
   hero,
@@ -456,4 +549,8 @@ export const marketingBlocks: Block[] = [
   richTextContent,
   mediaShowcase,
   cta,
+  landingHero,
+  whyKoya,
+  stocksTicker,
+  waitlistCta,
 ]
