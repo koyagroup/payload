@@ -97,11 +97,7 @@ async function upsertByField(
   })
 }
 
-async function upsertGlobal(
-  payload: any,
-  slug: string,
-  data: Record<string, unknown>,
-) {
+async function upsertGlobal(payload: any, slug: string, data: Record<string, unknown>) {
   return payload.updateGlobal({
     slug: slug as never,
     data: {
@@ -165,12 +161,7 @@ async function run() {
   const { default: configPromise } = await import('../src/payload.config')
   const payload = (await getPayload({ config: configPromise })) as any
 
-  await upsertUser(
-    payload,
-    process.env.SEED_ADMIN_EMAIL,
-    process.env.SEED_ADMIN_PASSWORD,
-    'admin',
-  )
+  await upsertUser(payload, process.env.SEED_ADMIN_EMAIL, process.env.SEED_ADMIN_PASSWORD, 'admin')
   await upsertUser(
     payload,
     process.env.SEED_EDITOR_EMAIL,
@@ -188,7 +179,7 @@ async function run() {
     siteName: 'Koya',
     siteTagline: 'Borderless Finance',
     siteDescription:
-      'Koya is a borderless finance platform for convert, hold, and cross-border money movement.',
+      'Borderless finance infrastructure. Mobile money in, Bitcoin out — built for how money actually moves.',
     defaultMetaTitle: 'Koya - Borderless Finance',
     defaultMetaDescription:
       'Convert KES to BTC instantly with Koya. Secure, fast, and transparent borderless finance.',
@@ -228,17 +219,57 @@ async function run() {
         sortOrder: 0,
         isCta: false,
         link: {
-          label: 'Home',
+          label: 'Convert',
           type: 'internal',
-          href: '/',
+          href: '/#convert',
           openInNewTab: false,
         },
       },
       {
         sortOrder: 1,
+        isCta: false,
+        link: {
+          label: 'How it works',
+          type: 'internal',
+          href: '/#how',
+          openInNewTab: false,
+        },
+      },
+      {
+        sortOrder: 2,
+        isCta: false,
+        link: {
+          label: 'Stocks',
+          type: 'internal',
+          href: '/#stocks',
+          openInNewTab: false,
+        },
+      },
+      {
+        sortOrder: 3,
+        isCta: false,
+        link: {
+          label: 'Card',
+          type: 'internal',
+          href: '/#card',
+          openInNewTab: false,
+        },
+      },
+      {
+        sortOrder: 4,
+        isCta: false,
+        link: {
+          label: 'Company',
+          type: 'internal',
+          href: '/#about',
+          openInNewTab: false,
+        },
+      },
+      {
+        sortOrder: 5,
         isCta: true,
         link: {
-          label: 'Convert',
+          label: 'Get started',
           type: 'internal',
           href: '/convert',
           openInNewTab: false,
@@ -265,9 +296,33 @@ async function run() {
           {
             sortOrder: 1,
             link: {
-              label: 'How It Works',
+              label: 'The card',
               type: 'internal',
-              href: '/#how-it-works',
+              href: '/#card',
+              openInNewTab: false,
+            },
+          },
+          {
+            sortOrder: 2,
+            link: {
+              label: 'Stocks',
+              type: 'internal',
+              href: '/#stocks',
+              openInNewTab: false,
+            },
+          },
+        ],
+      },
+      {
+        title: 'Company',
+        sortOrder: 1,
+        links: [
+          {
+            sortOrder: 0,
+            link: {
+              label: 'About',
+              type: 'internal',
+              href: '/#about',
               openInNewTab: false,
             },
           },
@@ -275,30 +330,30 @@ async function run() {
       },
       {
         title: 'Legal',
-        sortOrder: 1,
+        sortOrder: 2,
         links: [
           {
             sortOrder: 0,
             link: {
-              label: 'Privacy Policy',
+              label: 'Terms',
               type: 'internal',
-              href: '/legal/privacy-policy',
+              href: '/legal/terms-of-service',
               openInNewTab: false,
             },
           },
           {
             sortOrder: 1,
             link: {
-              label: 'Terms of Service',
+              label: 'Privacy',
               type: 'internal',
-              href: '/legal/terms-of-service',
+              href: '/legal/privacy-policy',
               openInNewTab: false,
             },
           },
         ],
       },
     ],
-    legalText: 'Koya. All rights reserved.',
+    legalText: '© 2026 Koya. All rights reserved.\nNairobi · Built for Africa and beyond',
   })
 
   await upsertByField(payload, 'pages', 'path', '/', {
@@ -310,64 +365,89 @@ async function run() {
       robots: 'index,follow',
     },
     sections: [
-      { blockType: 'marketRibbon', showLiveRates: true, tickerMode: 'scroll' },
+      // step-330 rebrand: landing.html is the design SoT. Six sections, in
+      // template order. Old blocks stay registered for rollback but are no
+      // longer composed here.
       {
-        blockType: 'hero',
-        eyebrow: 'Borderless Finance',
-        heading: 'Fund via M-Pesa. Convert, hold, and spend globally.',
-        subheading: 'One account for KES, USD, BTC, USDC, and USDT.',
-        primaryCta: { label: 'Start a conversion', href: '/convert' },
-        secondaryCta: { label: 'See how it works', href: '/#how-it-works' },
-      },
-      {
-        blockType: 'guestWidgetEmbed',
-        heading: 'Preview your conversion',
-        subheading: 'See indicative rates before you commit.',
-        badgeText: 'Try It',
-      },
-      {
-        blockType: 'trustStrip',
-        heading: 'Built for trust',
-        signals: [
-          { label: '24/7 monitoring' },
-          { label: 'KYC compliant' },
-          { label: 'Encrypted' },
+        blockType: 'landingHero',
+        heading: 'Buy and sell crypto in Kenya, instantly.',
+        subheading:
+          'Koya is the simplest way to move between shillings and Bitcoin, USDT and more. Cash in with M-Pesa, Airtel Money or your bank card — and cash out the same way, in seconds.',
+        primaryCta: { label: 'Start converting', href: '/convert' },
+        secondaryCta: { label: 'See the card', href: '/#card' },
+        trustSignals: [
+          { label: 'M-Pesa, Airtel & cards' },
+          { label: 'Settles in seconds' },
+          { label: 'Compliance-screened' },
         ],
-      },
-      {
-        blockType: 'featureGrid',
-        heading: 'Platform pillars',
-        columns: '3',
-        items: [
-          { title: 'Convert instantly', description: 'KES to BTC at live rates', icon: 'wallet' },
-          {
-            title: 'Hold multiple currencies',
-            description: 'One account, multiple wallets',
-            icon: 'globe',
-          },
-          { title: 'Spend globally', description: 'Premium cards from wallet balances', icon: 'card' },
-        ],
+        widgetFootnote: 'Guest conversion up to KES 100,000/day. No account required.',
       },
       {
         blockType: 'howItWorks',
-        heading: 'How it works',
+        eyebrow: 'How it works',
+        heading: 'Buy or sell crypto in three steps.',
+        subheading:
+          "Whether you're cashing in or cashing out, Koya gives you a live, locked quote and settles in seconds.",
         steps: [
-          { title: 'Fund', body: 'Deposit through M-Pesa or supported rails.' },
-          { title: 'Convert', body: 'Move between supported assets with transparent pricing.' },
-          { title: 'Deploy', body: 'Spend, transfer, or invest from the same account.' },
+          {
+            title: 'Choose buy or sell',
+            body: "Pick your asset — Bitcoin, USDT and more — and whether you're buying or selling. Lock a live quote for 15 seconds.",
+          },
+          {
+            title: 'Pay your way',
+            body: 'Buying? Pay with M-Pesa, Airtel Money or a bank card. Selling? Send the crypto to Koya from any wallet.',
+          },
+          {
+            title: 'Settle in seconds',
+            body: 'Buying? Crypto lands in your wallet. Selling? Cash hits your M-Pesa, Airtel or bank account — instantly.',
+          },
         ],
       },
-      { blockType: 'security', heading: 'Security first', controls: [{ title: 'Institutional controls' }] },
-      { blockType: 'cards', heading: 'Koya cards', features: [{ title: 'Global acceptance' }] },
       {
-        blockType: 'globalFinance',
-        heading: 'Global finance access',
-        highlights: [{ title: 'Fractional U.S. equities' }],
+        blockType: 'cards',
+        eyebrow: 'The Koya card',
+        heading: 'Spend your balance, anywhere Mastercard works.',
+        subheading:
+          'A matte-black Mastercard tied to your Koya balance. Hold KES, BTC, or stablecoins — spend in any currency, settle instantly.',
+        features: [
+          {
+            title: 'Multi-currency balance',
+            description: 'Hold KES, BTC, USDC and USDT in one account.',
+          },
+          {
+            title: 'Spend worldwide',
+            description: 'Tap, swipe, or pay online anywhere Mastercard is accepted.',
+          },
+          {
+            title: 'Live rates',
+            description: 'Convert at transparent, mid-market rates — refreshed every 15s.',
+          },
+        ],
       },
       {
-        blockType: 'finalCta',
-        heading: 'Ready to take control of your money?',
-        primaryCta: { label: 'Join waitlist', href: '/convert' },
+        blockType: 'stocksTicker',
+        eyebrow: 'Stocks',
+        heading: 'Stocks, moving in real time.',
+      },
+      {
+        // stats intentionally omitted: the template's four counters (converted
+        // to date, active customers, avg settlement, uptime) are operator-
+        // supplied real numbers, added via the admin when available.
+        blockType: 'whyKoya',
+        eyebrow: 'Why Koya',
+        heading: 'Money should move like a message.',
+        subheading:
+          'For most of Africa, moving value across a border still means queues, paperwork, and days of waiting. Koya rebuilds that rail on open money — mobile money in, Bitcoin out — so value travels at the speed of the internet, settles on-chain, and stays in your custody.',
+      },
+      {
+        blockType: 'waitlistCta',
+        eyebrow: 'Coming soon',
+        heading: 'Koya is live in Kenya. Your country is next.',
+        subheading:
+          "Tanzania, Uganda and Nigeria are next on the rail. Join the waitlist and we'll tell you the day Koya goes live near you.",
+        emailPlaceholder: 'you@example.com',
+        buttonLabel: 'Join waitlist',
+        successText: "You're on the list. We'll be in touch.",
       },
     ],
     _status: 'published',
@@ -408,7 +488,9 @@ async function run() {
   await upsertByField(payload, 'legal-pages', 'slug', 'privacy-policy', {
     title: 'Privacy Policy',
     slug: 'privacy-policy',
-    body: richTextParagraph('This privacy policy explains how Koya handles and protects your data.'),
+    body: richTextParagraph(
+      'This privacy policy explains how Koya handles and protects your data.',
+    ),
     seo: {
       metaTitle: 'Privacy Policy',
       metaDescription: 'How Koya collects, uses, and protects personal data.',
