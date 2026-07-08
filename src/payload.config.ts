@@ -13,6 +13,7 @@ import { Media } from '@/collections/Media'
 import { Pages } from '@/collections/Pages'
 import { Redirects } from '@/collections/Redirects'
 import { Users } from '@/collections/Users'
+import { WaitlistSignups } from '@/collections/WaitlistSignups'
 import { WhatsAppPreviewLinks } from '@/collections/WhatsAppPreviewLinks'
 import { Footer } from '@/globals/Footer'
 import { Navigation } from '@/globals/Navigation'
@@ -103,7 +104,16 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Pages, Media, Faqs, LegalPages, WhatsAppPreviewLinks, Users, Redirects],
+  collections: [
+    Pages,
+    Media,
+    Faqs,
+    LegalPages,
+    WhatsAppPreviewLinks,
+    Users,
+    Redirects,
+    WaitlistSignups,
+  ],
   globals: [SiteSettings, SeoDefaults, ThemeSettings, Navigation, Footer],
   db: postgresAdapter({
     migrationDir: path.resolve(dirname, 'migrations'),
