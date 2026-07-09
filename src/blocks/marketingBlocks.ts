@@ -249,6 +249,14 @@ const howItWorks: Block = {
           type: 'textarea',
           required: true,
         },
+        {
+          name: 'image',
+          type: 'text',
+          admin: {
+            description:
+              'Step screenshot URL (e.g. the marketing CDN). The web falls back to a built-in default if empty.',
+          },
+        },
       ],
     },
   ],
