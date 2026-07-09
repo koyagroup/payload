@@ -10,6 +10,7 @@ export const linkField = (name = 'link'): Field => ({
       name: 'label',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'type',

@@ -115,6 +115,15 @@ export default buildConfig({
     WaitlistSignups,
   ],
   globals: [SiteSettings, SeoDefaults, ThemeSettings, Navigation, Footer],
+  // step-334: language-first i18n. Launch locale set = English only; the URL
+  // segment /{lang}/{country} reserves the axis (en/ke), and adding sw/ke etc.
+  // later is a config-only `locales` addition. `fallback: true` means a missing
+  // locale value falls back to the default locale's value (safe for en-only).
+  localization: {
+    locales: [{ label: 'English', code: 'en' }],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   db: postgresAdapter({
     migrationDir: path.resolve(dirname, 'migrations'),
     pool: {

@@ -49,6 +49,7 @@ export const Footer: GlobalConfig = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'sortOrder',
@@ -76,6 +77,7 @@ export const Footer: GlobalConfig = {
     {
       name: 'legalText',
       type: 'textarea',
+      localized: true,
     },
   ],
   hooks: {

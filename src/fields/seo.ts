@@ -8,11 +8,13 @@ export const seoFieldGroup = (): Field => ({
       name: 'metaTitle',
       type: 'text',
       maxLength: 70,
+      localized: true,
     },
     {
       name: 'metaDescription',
       type: 'textarea',
       maxLength: 200,
+      localized: true,
     },
     {
       name: 'ogImage',
