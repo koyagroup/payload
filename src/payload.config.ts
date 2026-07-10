@@ -15,6 +15,7 @@ import { Redirects } from '@/collections/Redirects'
 import { Users } from '@/collections/Users'
 import { WaitlistSignups } from '@/collections/WaitlistSignups'
 import { WhatsAppPreviewLinks } from '@/collections/WhatsAppPreviewLinks'
+import { CookieConsent } from '@/globals/CookieConsent'
 import { Footer } from '@/globals/Footer'
 import { Navigation } from '@/globals/Navigation'
 import { SeoDefaults } from '@/globals/SeoDefaults'
@@ -114,7 +115,7 @@ export default buildConfig({
     Redirects,
     WaitlistSignups,
   ],
-  globals: [SiteSettings, SeoDefaults, ThemeSettings, Navigation, Footer],
+  globals: [SiteSettings, SeoDefaults, ThemeSettings, Navigation, Footer, CookieConsent],
   // step-334: language-first i18n. Launch locale set = English only; the URL
   // segment /{lang}/{country} reserves the axis (en/ke), and adding sw/ke etc.
   // later is a config-only `locales` addition. `fallback: true` means a missing
