@@ -38,6 +38,18 @@ jobs:
         run: npm i -g vercel@latest
       - name: Pull Vercel project settings (production)
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      # step-335: run migrations BEFORE the build so the deployed app never runs
+      # ahead of its schema. DATABASE_URL comes from the pulled production env
+      # (.vercel/.env.production.local). A failed migrate fails the whole deploy
+      # (no build, no deploy) — the schema and the app stay in lockstep.
+      - name: Install dependencies (for migrate)
+        run: pnpm install --frozen-lockfile
+      - name: Migrate production database (fail the deploy on error)
+        run: |
+          set -a
+          . .vercel/.env.production.local
+          set +a
+          pnpm payload migrate
       - name: Build (regenerates importMap)
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy (production)
