@@ -4,6 +4,7 @@ import { authenticatedOrPublishedGlobal } from '@/access/authenticatedOrPublishe
 import { editorOrAbove } from '@/access/editorOrAbove'
 import { denyEditorPublishGlobal } from '@/hooks/denyEditorPublish'
 import { createGlobalRevalidationHook } from '@/hooks/revalidation/createHooks'
+import { buildPreviewURL } from '@/utilities/preview'
 
 // step-336: the cookie-consent banner's headline + "how Koya uses cookies" body
 // are editable here. The category descriptions and button labels stay fixed in
@@ -25,6 +26,22 @@ export const CookieConsent: GlobalConfig = {
   admin: {
     description:
       'Text shown in the cookie-consent banner. Category descriptions and button labels are fixed in code; the web uses built-in defaults if these are empty.',
+    preview: (data) =>
+      buildPreviewURL({
+        path: '/',
+        resourceType: 'global',
+        resourceSlug: 'cookie-consent',
+        status: (data as { _status?: string })?._status,
+      }),
+    livePreview: {
+      url: ({ data }) =>
+        buildPreviewURL({
+          path: '/',
+          resourceType: 'global',
+          resourceSlug: 'cookie-consent',
+          status: (data as { _status?: string })?._status,
+        }),
+    },
   },
   fields: [
     {
