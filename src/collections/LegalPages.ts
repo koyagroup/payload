@@ -52,6 +52,7 @@ export const LegalPages: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -73,6 +74,7 @@ export const LegalPages: CollectionConfig = {
       type: 'richText',
       editor: lexicalEditor(),
       required: true,
+      localized: true,
     },
     seoFieldGroup(),
     {

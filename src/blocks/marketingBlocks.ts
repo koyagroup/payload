@@ -35,6 +35,7 @@ const ctaFields = (prefix = 'primaryCta'): Field => ({
     {
       name: 'label',
       type: 'text',
+      localized: true,
     },
     {
       name: 'href',
@@ -78,14 +79,17 @@ const sectionHeadingFields: Field[] = [
   {
     name: 'eyebrow',
     type: 'text',
+    localized: true,
   },
   {
     name: 'heading',
     type: 'text',
+    localized: true,
   },
   {
     name: 'subheading',
     type: 'textarea',
+    localized: true,
   },
   variantField,
 ]
@@ -144,6 +148,7 @@ const guestWidgetEmbed: Block = {
     {
       name: 'badgeText',
       type: 'text',
+      localized: true,
     },
   ],
 }
@@ -166,10 +171,12 @@ const trustStrip: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'value',
           type: 'text',
+          localized: true,
         },
       ],
     },
@@ -204,10 +211,12 @@ const featureGrid: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
         {
           name: 'icon',
@@ -243,11 +252,13 @@ const howItWorks: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'body',
           type: 'textarea',
           required: true,
+          localized: true,
         },
         {
           name: 'image',
@@ -280,10 +291,12 @@ const security: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
       ],
     },
@@ -308,10 +321,12 @@ const cards: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
       ],
     },
@@ -336,10 +351,12 @@ const globalFinance: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
       ],
     },
@@ -366,6 +383,7 @@ const convertHero: Block = {
     {
       name: 'badgeText',
       type: 'text',
+      localized: true,
     },
   ],
 }
@@ -388,6 +406,7 @@ const trustFooterItems: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
       ],
     },
@@ -406,6 +425,7 @@ const richTextContent: Block = {
       name: 'body',
       type: 'richText',
       required: true,
+      localized: true,
     },
   ],
 }
@@ -470,12 +490,14 @@ const landingHero: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
       ],
     },
     {
       name: 'widgetFootnote',
       type: 'text',
+      localized: true,
     },
   ],
 }
@@ -498,11 +520,13 @@ const whyKoya: Block = {
           name: 'value',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
       ],
     },
@@ -529,14 +553,17 @@ const waitlistCta: Block = {
     {
       name: 'emailPlaceholder',
       type: 'text',
+      localized: true,
     },
     {
       name: 'buttonLabel',
       type: 'text',
+      localized: true,
     },
     {
       name: 'successText',
       type: 'text',
+      localized: true,
     },
   ],
 }

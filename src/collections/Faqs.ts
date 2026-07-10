@@ -29,11 +29,13 @@ export const Faqs: CollectionConfig = {
       name: 'question',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'answer',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'category',
