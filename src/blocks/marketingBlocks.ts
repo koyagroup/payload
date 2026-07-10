@@ -413,6 +413,99 @@ const trustFooterItems: Block = {
   ],
 }
 
+// step-339 — the /convert page rail + markets sections, so the WHOLE convert page is
+// CMS-controlled. Copy only: the widget's capability copy (method names, "Coming soon",
+// limits, fees) stays code-derived — money honesty, not marketing copy.
+const convertIconOptions = [
+  { label: 'Percent', value: 'percent' },
+  { label: 'Radio (live)', value: 'radio' },
+  { label: 'Shield', value: 'shield' },
+  { label: 'Lock', value: 'lock' },
+  { label: 'Chart', value: 'chart' },
+  { label: 'Zap', value: 'zap' },
+]
+
+const convertPricing: Block = {
+  slug: 'convertPricing',
+  labels: {
+    singular: 'Convert Pricing Card',
+    plural: 'Convert Pricing Cards',
+  },
+  fields: [
+    ...sectionHeadingFields,
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      maxRows: 6,
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          localized: true,
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+        },
+        {
+          name: 'icon',
+          type: 'select',
+          options: convertIconOptions,
+        },
+      ],
+    },
+  ],
+}
+
+const convertTrust: Block = {
+  slug: 'convertTrust',
+  labels: {
+    singular: 'Convert Trust Cards',
+    plural: 'Convert Trust Cards',
+  },
+  fields: [
+    ...sectionHeadingFields,
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      maxRows: 4,
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          localized: true,
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+        },
+        {
+          name: 'icon',
+          type: 'select',
+          options: convertIconOptions,
+        },
+      ],
+    },
+  ],
+}
+
+const convertMarkets: Block = {
+  slug: 'convertMarkets',
+  labels: {
+    singular: 'Convert Markets Heading',
+    plural: 'Convert Markets Headings',
+  },
+  // Headings only — the market ROWS are live feed data, never CMS-authored (no fabricated
+  // prices). This block controls the section's eyebrow/heading/subheading.
+  fields: [...sectionHeadingFields],
+}
+
 const richTextContent: Block = {
   slug: 'richTextContent',
   labels: {
@@ -581,6 +674,9 @@ export const marketingBlocks: Block[] = [
   finalCta,
   convertHero,
   trustFooterItems,
+  convertPricing,
+  convertTrust,
+  convertMarkets,
   richTextContent,
   mediaShowcase,
   cta,
